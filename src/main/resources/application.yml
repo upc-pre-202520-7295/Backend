@@ -3,9 +3,9 @@ spring:
     name: betalyze
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/betalyze
-    username: admin
-    password: admin
+    url: ${PSQL_URL:jdbc:postgresql://localhost:5432/betalyze}
+    username: ${PSQL_USERNAME:admin}
+    password: ${PSQL_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
 
   h2:
