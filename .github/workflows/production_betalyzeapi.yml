@@ -20,9 +20,13 @@ jobs:
         with:
           java-version: '21'
           distribution: 'microsoft'
+          cache: 'maven'
 
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests
+        run: mvn -B clean package -U -DskipTests
+
+      - name: Check JAR size
+        run: ls -lh target/*.jar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -43,12 +47,6 @@ jobs:
         with:
           name: java-app
 
-      - name: List downloaded files
-        run: ls -lhR .
-
-      - name: Move JAR to workspace root
-        run: mv java-app/*.jar app.jar
-
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -61,4 +59,4 @@ jobs:
         with:
           app-name: 'betalyzeapi'
           slot-name: 'Production'
-          package: 'app.jar'
+          package: '*.jar'
