@@ -1,18 +1,17 @@
 spring:
   application:
-    name: ${APP_NAME:betalyze}
+    name: betalyze
 
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://betalyze.postgres.database.azure.com:5432/betalyze}
-    username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:@Andorla0204}
+    url: jdbc:postgresql://betalyze.postgres.database.azure.com:5432/betalyze
+    username: postgres
+    password: @Andorla0204
     driver-class-name: org.postgresql.Driver
-
 
   jpa:
     hibernate:
-      ddl-auto: ${JPA_DDL_AUTO:update}
-    show-sql: ${JPA_SHOW_SQL:false}
+      ddl-auto: update
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -22,40 +21,36 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: false
-    time-zone: ${APP_TIMEZONE:UTC}
+    time-zone: UTC
 
-# JWT Configuration
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
-  expiration: ${JWT_EXPIRATION:86400000}
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 86400000
 
-# Firebase Configuration
 firebase:
   config:
-    path: ${FIREBASE_CONFIG_PATH:./firebase-service-account.json}
+    path: ./firebase-service-account.json
 
-# Swagger Configuration
 springdoc:
   api-docs:
     path: /v3/api-docs
-    enabled: ${SWAGGER_ENABLED:true}
+    enabled: true
   swagger-ui:
     path: /swagger-ui.html
     operationsSorter: method
-    enabled: ${SWAGGER_UI_ENABLED:true}
+    enabled: true
 
-# Logging
 logging:
   level:
-    root: ${LOG_LEVEL_ROOT:ERROR}
-    com.betalyze: ${LOG_LEVEL_APP:DEBUG}
-    org.springframework: ${LOG_LEVEL_SPRING:WARN}
-    org.springframework.web: ${LOG_LEVEL_SPRING_WEB:INFO}
-    org.springframework.security: ${LOG_LEVEL_SECURITY:WARN}
-    org.apache.catalina: ${LOG_LEVEL_CATALINA:WARN}
+    root: ERROR
+    com.betalyze: DEBUG
+    org.springframework: WARN
+    org.springframework.web: INFO
+    org.springframework.security: WARN
+    org.apache.catalina: WARN
 
 server:
-  port: ${PORT:8094}
+  port: 8094
   error:
-    include-message: ${ERROR_INCLUDE_MESSAGE:always}
-    include-stacktrace: ${ERROR_INCLUDE_STACKTRACE:on_param}
+    include-message: always
+    include-stacktrace: on_param
