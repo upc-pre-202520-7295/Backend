@@ -8,10 +8,6 @@ spring:
     password: ${DATABASE_PASSWORD:@Andorla0204}
     driver-class-name: org.postgresql.Driver
 
-  h2:
-    console:
-      enabled: ${H2_CONSOLE_ENABLED:false}
-      path: /h2-console
 
   jpa:
     hibernate:
@@ -59,7 +55,7 @@ logging:
     org.apache.catalina: ${LOG_LEVEL_CATALINA:WARN}
 
 server:
-  port: ${PORT:8093}
+  port: ${PORT:8094}
   error:
     include-message: ${ERROR_INCLUDE_MESSAGE:always}
     include-stacktrace: ${ERROR_INCLUDE_STACKTRACE:on_param}
