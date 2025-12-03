@@ -34,7 +34,7 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
   public void handle(SendActiveNotificacionsCommand command) {
     List<Notification> pendingNotifications = notificationRepository.findBySentFalse();
 
-    log.info("Sending {} pending notifications", pendingNotifications.size());
+   // log.info("Sending {} pending notifications", pendingNotifications.size());
 
     for (Notification notification : pendingNotifications) {
       try {

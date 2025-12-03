@@ -18,7 +18,6 @@ public class NotificationScheduler {
 
   @Scheduled(fixedRate = 3000) // Every 5 minutes
   public void sendPendingNotifications() {
-    log.info("Checking for pending notifications");
     try {
       notificationCommandService.handle(new SendActiveNotificacionsCommand());
     } catch (Exception e) {

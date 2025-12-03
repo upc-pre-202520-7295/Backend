@@ -86,7 +86,7 @@ The application follows DDD with four bounded contexts:
 # Create database
 createdb betalyze
 
-# Update application.yml with your database credentials
+# Update application.properties with your database credentials
 ```
 
 ### 2. Environment Variables
