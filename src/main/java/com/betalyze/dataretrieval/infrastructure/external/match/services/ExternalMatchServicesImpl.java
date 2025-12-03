@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExternalMatchServicesImpl implements ExternalMatchServices {
   private final String apiHost = "https://v3.football.api-sports.io/fixtures";
-  private final String apiKey = "cdb0743dcd037368803101e11a29345f"; // TODO: pass to env
+  private final String apiKey = "263b946926d619781746d75130d449f8"; // TODO: pass to env
   private final String leagueId = "2";
 
   RestClient restClient = RestClient.create();
