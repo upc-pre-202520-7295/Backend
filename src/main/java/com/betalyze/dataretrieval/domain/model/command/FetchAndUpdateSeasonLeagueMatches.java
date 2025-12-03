@@ -1,10 +1,11 @@
 package com.betalyze.dataretrieval.domain.model.command;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class FetchAndUpdateSeasonLeagueMatches {
-  private Integer season;
+  private final Integer season;
+  private final Integer leagueId;
 }

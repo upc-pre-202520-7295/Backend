@@ -7,4 +7,6 @@ public interface DataRetrievalCommandService {
   void handle(FetchAndUpdateSeasonLeagueTeams command) throws Exception;
 
   void handle(FetchAndUpdateSeasonLeagueMatches command) throws Exception;
+
+  void handleFullDataLoad() throws Exception;
 }

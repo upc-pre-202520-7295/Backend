@@ -20,12 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ExternalTeamServicesImpl implements ExternalTeamServices {
   private final String apiHost = "https://v3.football.api-sports.io/teams/";
   private final String apiKey = "263b946926d619781746d75130d449f8"; // TODO: pass to env
-  private final String leagueId = "2";
 
   RestClient restClient = RestClient.create();
 
   @Override
-  public List<ExternalTeamDto> getTeamsPerSeason(Integer season) {
+  public List<ExternalTeamDto> getTeamsPerSeason(Integer season, Integer leagueId) {
     String jsonStr = restClient
         .get()
         .uri(apiHost + "?league=" + leagueId + "&season=" + season)
@@ -45,7 +44,7 @@ public class ExternalTeamServicesImpl implements ExternalTeamServices {
             team.get("id").asText(),
             team.get("name").asText(),
             team.get("logo").asText(),
-            leagueId));
+            leagueId.toString()));
       }
 
       return teams;

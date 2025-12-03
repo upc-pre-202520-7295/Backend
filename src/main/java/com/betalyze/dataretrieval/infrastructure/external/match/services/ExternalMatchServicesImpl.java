@@ -21,15 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExternalMatchServicesImpl implements ExternalMatchServices {
   private final String apiHost = "https://v3.football.api-sports.io/fixtures";
-  private final String apiKey = "263b946926d619781746d75130d449f8"; // TODO: pass to env
-  private final String leagueId = "2";
+  private final String apiKey = "263b946926d619781746d75130d449f8";
 
   RestClient restClient = RestClient.create();
 
-  public List<ExternalMatchDto> getMatchesPerSeason(Integer season) {
+  public List<ExternalMatchDto> getMatchesPerSeason(Integer season, Integer leagueId) {
+    final String from = season + "-01-01";
+    final String to = season + "-12-31";
+
     String jsonStr = restClient
         .get()
-        .uri(apiHost + "?league=" + leagueId + "&season=" + season)
+        .uri(apiHost + "?league=" + leagueId + "&season=" + season + "&from=" + from + "&to=" + to)
         .header("x-apisports-key", apiKey)
         .retrieve().body(String.class);
 
@@ -73,7 +75,7 @@ public class ExternalMatchServicesImpl implements ExternalMatchServices {
             league.get("logo").asText(),
             league.get("name").asText(),
 
-            status.asText(),
+            status.get("short").asText(),
 
             goals.get("home").asInt(),
             goals.get("away").asInt());
@@ -84,6 +86,7 @@ public class ExternalMatchServicesImpl implements ExternalMatchServices {
       return matches;
 
     } catch (Exception e) {
+      log.error("Error parsing JSON from football API: {}", e.getMessage(), e);
       throw new RuntimeException(e);
     }
   }

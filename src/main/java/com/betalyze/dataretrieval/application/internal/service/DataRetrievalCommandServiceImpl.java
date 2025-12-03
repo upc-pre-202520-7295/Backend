@@ -32,13 +32,23 @@ public class DataRetrievalCommandServiceImpl implements DataRetrievalCommandServ
   private final ExternalMatchServices externalMatchServices;
   private final ExternalTeamServices externalTeamServices;
 
+  private static final List<Integer> LEAGUES_LIST = List.of(
+      2,   // UEFA Champions League
+      3,   // UEFA Europa League
+      39,  // Premier League (Inglaterra)
+      140, // La Liga (España)
+      135, // Serie A (Italia)
+      78,  // Bundesliga (Alemania)
+      61   // Ligue 1 (Francia)
+  );
+
   @Transactional
   @Override
   public void handle(FetchAndUpdateSeasonLeagueTeams command) throws Exception {
     log.info(
-        "[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueTeams] Checking for updates to the season league schedule");
+        "[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueTeams] Checking for updates for league {} in season {}", command.getLeagueId(), command.getSeason());
 
-    List<ExternalTeamDto> resTeams = externalTeamServices.getTeamsPerSeason(command.getSeason());
+    List<ExternalTeamDto> resTeams = externalTeamServices.getTeamsPerSeason(command.getSeason(), command.getLeagueId());
 
     log.info("[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueTeams] resTeams: {}", resTeams);
 
@@ -81,9 +91,9 @@ public class DataRetrievalCommandServiceImpl implements DataRetrievalCommandServ
   @Override
   public void handle(FetchAndUpdateSeasonLeagueMatches command) throws Exception {
     log.info(
-        "[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueMatches] Checking for updates to the season league schedule");
+        "[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueMatches] Checking for updates for league {} in season {}", command.getLeagueId(), command.getSeason());
 
-    List<ExternalMatchDto> resMatches = externalMatchServices.getMatchesPerSeason(command.getSeason());
+    List<ExternalMatchDto> resMatches = externalMatchServices.getMatchesPerSeason(command.getSeason(), command.getLeagueId());
 
     log.info("[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueMatches] resMatches: {}", resMatches);
 
@@ -136,6 +146,19 @@ public class DataRetrievalCommandServiceImpl implements DataRetrievalCommandServ
       log.info("[DataRetrievalCommandServiceImpl.FetchAndUpdateSeasonLeagueMatches] Updated match {} VS {} - {}",
           resMatch.getHomeTeamName(), resMatch.getAwayTeamName(), resMatch.getMatchDate());
     }
+  }
+
+  @Override
+  public void handleFullDataLoad() throws Exception {
+    log.info("[DataRetrievalCommandServiceImpl.handleFullDataLoad] Starting full data load process");
+    for (int year = 2000; year <= 2024; year++) {
+      for (Integer leagueId : LEAGUES_LIST) {
+        log.info("[DataRetrievalCommandServiceImpl.handleFullDataLoad] Processing year {} for league {}", year, leagueId);
+        handle(new FetchAndUpdateSeasonLeagueTeams(year, leagueId));
+        handle(new FetchAndUpdateSeasonLeagueMatches(year, leagueId));
+      }
+    }
+    log.info("[DataRetrievalCommandServiceImpl.handleFullDataLoad] Full data load process finished");
   }
 
   private MatchStatus mapFromString(String status) {
