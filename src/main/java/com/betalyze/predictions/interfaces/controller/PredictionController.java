@@ -71,11 +71,10 @@ public class PredictionController {
     // MAPEADOR: Object[] -> PredictionResponse
     // ======================================================
     private PredictionResponse mapRowToResponse(Object[] row) {
-        // Índices exactamente como en el SELECT de PredictionRepo
+        // Indices
         UUID predictionId           = (UUID) row[0];
         UUID matchId                = (UUID) row[1];
 
-        // FIX: Convertir Timestamp a LocalDateTime
         LocalDateTime createdAt     = convertToLocalDateTime(row[2]);
         LocalDateTime updatedAt     = convertToLocalDateTime(row[3]);
 
@@ -104,6 +103,8 @@ public class PredictionController {
         String homeTeamName         = (String) row[26];
         String awayTeamName         = (String) row[27];
 
+        LocalDateTime matchDate     = convertToLocalDateTime(row[28]);
+
         // Result
         ResultDTO result = new ResultDTO(
                 orZero(homeWinProb),
@@ -114,14 +115,12 @@ public class PredictionController {
                 orZero(resultConfScore)
         );
 
-        // Goals
         GoalsDTO goals = new GoalsDTO(
                 orZero(homeExpGoals),
                 orZero(awayExpGoals),
                 orZero(totalExpGoals)
         );
 
-        // Over/Under
         OverUnderDTO overUnder = new OverUnderDTO(
                 orZero(over25Prob),
                 orZero(under25Prob),
@@ -130,7 +129,6 @@ public class PredictionController {
                 orZero(ouConfScore)
         );
 
-        // Both Teams Score
         BothTeamsScoreDTO btts = new BothTeamsScoreDTO(
                 orZero(bttsProb),
                 bttsRecommendation != null ? bttsRecommendation : "UNKNOWN"
@@ -138,9 +136,8 @@ public class PredictionController {
 
         PredictionsDTO predictions = new PredictionsDTO(result, goals, overUnder, btts);
 
-        // Match info
-        String date = createdAt != null ? createdAt.toLocalDate().toString() : "Unknown";
-        String time = createdAt != null ? createdAt.toLocalTime().toString() : "Unknown";
+        String date = matchDate != null ? matchDate.toLocalDate().toString() : "Unknown";
+        String time = matchDate != null ? matchDate.toLocalTime().toString() : "Unknown";
 
         MatchInfoDTO matchInfo = new MatchInfoDTO(
                 date,
@@ -159,6 +156,7 @@ public class PredictionController {
                 matchInfo
         );
     }
+
 
     // ======================================================
     // UTILITY METHODS

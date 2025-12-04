@@ -43,7 +43,8 @@ public interface PredictionRepo extends JpaRepository<PredictionEntity, UUID> {
                m.league_name,
                m.season,
                COALESCE(ht.team_name, 'Unknown') as home_team_name,
-               COALESCE(at.team_name, 'Unknown') as away_team_name
+               COALESCE(at.team_name, 'Unknown') as away_team_name,
+               m.match_date  -- ✅ AGREGADO AQUÍ (índice 28)
            FROM predictions p
            JOIN matches m ON p.match_id = m.id
            LEFT JOIN teams ht ON ht.id = m.home_team_id
@@ -81,7 +82,8 @@ public interface PredictionRepo extends JpaRepository<PredictionEntity, UUID> {
                m.league_name,
                m.season,
                COALESCE(ht.team_name, 'Unknown') as home_team_name,
-               COALESCE(at.team_name, 'Unknown') as away_team_name
+               COALESCE(at.team_name, 'Unknown') as away_team_name,
+               m.match_date  -- ✅ AGREGADO AQUÍ (índice 28)
            FROM predictions p
            JOIN matches m ON p.match_id = m.id
            LEFT JOIN teams ht ON ht.id = m.home_team_id
@@ -120,7 +122,8 @@ public interface PredictionRepo extends JpaRepository<PredictionEntity, UUID> {
                m.league_name,
                m.season,
                COALESCE(ht.team_name, 'Unknown') as home_team_name,
-               COALESCE(at.team_name, 'Unknown') as away_team_name
+               COALESCE(at.team_name, 'Unknown') as away_team_name,
+               m.match_date  -- ✅ AGREGADO AQUÍ (índice 28)
            FROM predictions p
            JOIN matches m ON p.match_id = m.id
            LEFT JOIN teams ht ON ht.id = m.home_team_id
@@ -162,7 +165,8 @@ public interface PredictionRepo extends JpaRepository<PredictionEntity, UUID> {
                m.league_name,
                m.season,
                COALESCE(ht.team_name, 'Unknown') as home_team_name,
-               COALESCE(at.team_name, 'Unknown') as away_team_name
+               COALESCE(at.team_name, 'Unknown') as away_team_name,
+               m.match_date  -- ✅ AGREGADO AQUÍ (índice 28)
            FROM predictions p
            JOIN matches m ON p.match_id = m.id
            LEFT JOIN teams ht ON ht.id = m.home_team_id
@@ -206,7 +210,8 @@ public interface PredictionRepo extends JpaRepository<PredictionEntity, UUID> {
                m.league_name,
                m.season,
                COALESCE(ht.team_name, 'Unknown') as home_team_name,
-               COALESCE(at.team_name, 'Unknown') as away_team_name
+               COALESCE(at.team_name, 'Unknown') as away_team_name,
+               m.match_date  -- ✅ AGREGADO AQUÍ (índice 28)
            FROM predictions p
            JOIN matches m ON p.match_id = m.id
            LEFT JOIN teams ht ON ht.id = m.home_team_id

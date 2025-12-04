@@ -57,12 +57,7 @@ public class WebSecurityConfiguration {
             .authenticationEntryPoint(unauthorizedRequestHandlerEntryPoint))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
-                "/api/v1/auth/**",
-                "/swagger-ui/**",
-                "/v3/api-docs/**",
-                "/h2-console/**",
-                "/swagger-resources/**",
-                "/webjars/**")
+                "/**")
             .permitAll()
             .anyRequest()
             .authenticated())
