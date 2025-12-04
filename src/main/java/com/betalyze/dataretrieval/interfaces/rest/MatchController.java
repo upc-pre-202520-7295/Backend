@@ -4,12 +4,9 @@
       import java.time.LocalDate;
       import java.util.List;
 
+      import com.betalyze.dataretrieval.domain.model.query.GetMatchesBySeasonLeague;
       import org.springframework.http.ResponseEntity;
-      import org.springframework.web.bind.annotation.GetMapping;
-      import org.springframework.web.bind.annotation.PathVariable;
-      import org.springframework.web.bind.annotation.PostMapping;
-      import org.springframework.web.bind.annotation.RequestMapping;
-      import org.springframework.web.bind.annotation.RestController;
+      import org.springframework.web.bind.annotation.*;
 
       import com.betalyze.dataretrieval.domain.model.command.FetchAndUpdateSeasonLeagueMatches;
       import com.betalyze.dataretrieval.domain.model.command.FetchAndUpdateSeasonLeagueTeams;
@@ -89,7 +86,44 @@
           }
         }
 
-        @PostMapping("/refresh/{season}/{leagueId}")
+//          @GetMapping("/")
+//          @Operation(summary = "Get all matches or filter by league and/or season")
+//          public ResponseEntity<Response<List<MatchResource>>> getAllMatches(
+//                  @RequestParam(required = false) Integer season,
+//                  @RequestParam(required = false) Integer leagueId) {
+//              try {
+//                  log.info("[MatchController.getAllMatches] Get matches with season={} leagueId={}", season, leagueId);
+//
+//                  List<Match> matches;
+//                  if (season == null && leagueId == null) {
+//                      matches = dataRetrievalQueryService.handle(new GetAllMatches());
+//                  } else {
+//                      matches = dataRetrievalQueryService.handle(new GetMatchesBySeasonLeague(season, leagueId));
+//                  }
+//
+//                  log.info("[MatchController.getAllMatches] matches: {}", matches);
+//                  List<MatchResource> resources = matches.stream().map(m -> new MatchResource(
+//                          m.getId().toString(),
+//                          new TeamResource(m.getHomeTeam().getId(), m.getHomeTeam().getTeamName(), m.getHomeTeam().getTeamImageUrl()),
+//                          new TeamResource(m.getAwayTeam().getId(), m.getAwayTeam().getTeamName(), m.getAwayTeam().getTeamImageUrl()),
+//                          m.getDetails().getHomeTeamScore(),
+//                          m.getDetails().getAwayTeamScore(),
+//                          m.getMatchDate().toString(),
+//                          m.getDetails().getMatchStatus().toString())).toList();
+//
+//                  log.info("[MatchController.getAllMatches] resources: {}", resources);
+//                  return ResponseEntity.ok(Response.success(resources));
+//              } catch (Exception e) {
+//                  log.error("[MatchController.getAllMatches] Error getting matches", e);
+//                  return ResponseEntity.internalServerError().build();
+//              }
+//          }
+
+
+
+
+
+          @PostMapping("/refresh/{season}/{leagueId}")
         @Operation(summary = "Manually refresh matches for a season and league")
         public ResponseEntity<Response<Void>> refreshMatches(@PathVariable Integer season, @PathVariable Integer leagueId) throws Exception {
           try {
