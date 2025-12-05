@@ -3,9 +3,9 @@ spring:
     name: ${APP_NAME:betalyze}
 
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://betalyze.postgres.database.azure.com:5432/bet2}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/bet2}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:@Andorla0204}
+    password: ${DATABASE_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
   h2:
     console:
@@ -31,6 +31,10 @@ spring:
 jwt:
   secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
   expiration: ${JWT_EXPIRATION:86400000}
+
+
+api:
+  football: ${FOOTBALL_API_KEY}
 
 # Firebase Configuration
 firebase:

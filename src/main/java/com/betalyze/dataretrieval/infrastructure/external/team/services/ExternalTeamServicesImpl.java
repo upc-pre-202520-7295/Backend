@@ -3,6 +3,7 @@ package com.betalyze.dataretrieval.infrastructure.external.team.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -19,7 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExternalTeamServicesImpl implements ExternalTeamServices {
   private final String apiHost = "https://v3.football.api-sports.io/teams/";
-  private final String apiKey = "263b946926d619781746d75130d449f8"; // TODO: pass to env
+
+    @Value("${api.football}")
+    private String apiKey;
+
 
   RestClient restClient = RestClient.create();
 

@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -21,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExternalMatchServicesImpl implements ExternalMatchServices {
   private final String apiHost = "https://v3.football.api-sports.io/fixtures";
-  private final String apiKey = "263b946926d619781746d75130d449f8";
+    @Value("${api.football}")
+    private String apiKey;
 
   RestClient restClient = RestClient.create();
 
