@@ -3,10 +3,11 @@ spring:
     name: ${APP_NAME:betalyze}
 
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/bet2}
+    url: ${DATABASE_URL:jdbc:postgresql://betalyze.postgres.database.azure.com:5432/bet2}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:admin}
+    password: ${DATABASE_PASSWORD:@Andorla0204}
     driver-class-name: org.postgresql.Driver
+
   h2:
     console:
       enabled: ${H2_CONSOLE_ENABLED:false}
