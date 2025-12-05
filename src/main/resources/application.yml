@@ -35,7 +35,7 @@ jwt:
 
 
 api:
-  football: ${FOOTBALL_API_KEY}
+  football: ${FOOTBALL_API_KEY:263b946926d619781746d75130d449f8}
 
 # Firebase Configuration
 firebase:
